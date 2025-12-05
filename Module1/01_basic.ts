@@ -1,71 +1,108 @@
-// Basic Types 
-let usersame:String = "JohnDoe";
-let userage:Number = 30;
-let isAdmin:Boolean = true;
+// ------------------------------
+// 🔹 Basic Types
+// ------------------------------
 
-let userScores:Array<Number> = [85, 90, 78];
-let userRoles:[String, Number] = ['admin', 1];
+// Prefer primitive types: string, number, boolean (NOT String, Number, Boolean)
+let username: string = "JohnDoe";
+let userAge: number = 30;
+let isAdmin: boolean = true;
 
+// Array types
+let userScores: number[] = [85, 90, 78];
+
+// Tuple: fixed-length & fixed-type array
+let userRoles: [string, number] = ["admin", 1];
+
+// Object type annotation
 let person: {
-    name:String,
-    age:Number
+  name: string;
+  age: number;
 } = {
-    name: "Jane Doe",
-    age: 25
+  name: "Jane Doe",
+  age: 25,
+};
+
+// ------------------------------
+// 🔹 Function with Typed Parameters & Return Type
+// ------------------------------
+
+/**
+ * Greets a user by name
+ */
+function greetUser(name: string): string {
+  return `Hello, ${name}!`;
 }
 
-// Function with typed parameters and return type
-function greetUser(name:String):String{
-    return `Hello, ${name}!`;
-}
+// ------------------------------
+// 🔹 never Type Example
+// ------------------------------
 
-// never: 
+/**
+ * A function that never returns (throws an error)
+ */
 function throwError(message: string): never {
-    throw new Error(message);
+  throw new Error(message);
 }
 
-// Type Alias and Type Interface
+// ------------------------------
+// 🔹 Type Alias and Interface
+// ------------------------------
 
+// Union type alias
+type UserID = string | number;
 
-type UserID = String | Number;
+// Interface for a user
 interface User {
-    id: UserID;
-    name: String;
-    age: Number;
+  id: UserID;
+  name: string;
+  age: number;
 }
 
+/**
+ * Important Difference:
+ * - type: cannot be merged or reopened, but supports union/intersection.
+ * - interface: can be merged and extended multiple times.
+ */
 
-// type: can't be merged and can't be reopened to add new properties, but can create unions
-// interface: can be merged and extends multiple times
-
+// ------------------------------
+// 🔹 Interface Merging Example
+// ------------------------------
 
 interface Car {
-    name:String;
-
+  name: string;
 }
+
+// Merged with previous Car interface
 interface Car {
-    model:Number;
+  model: number;
 }
 
+// Interface extending another interface
 interface Bike extends Car {
-    year:Number;
+  year: number;
 }
 
 let myCar: Car = {
-    name: "Toyota",
-    model: 2021
-}
+  name: "Toyota",
+  model: 2021,
+};
 
 let myBike: Bike = {
-    name: "Yamaha",
-    model: 2020,
-    year: 2021
-}
+  name: "Yamaha",
+  model: 2020,
+  year: 2021,
+};
+
+// ------------------------------
+// 🔹 Discriminated Union + Type Guard
+// ------------------------------
 
 type Fish = { type: "fish"; swim: () => void };
 type Bird = { type: "bird"; fly: () => void };
 
-
+/**
+ * Custom type guard to check if the given pet is a Fish
+ */
 function isFish(pet: Fish | Bird): pet is Fish {
   return pet.type === "fish";
 }
@@ -73,13 +110,22 @@ function isFish(pet: Fish | Bird): pet is Fish {
 let pet: Fish | Bird = { type: "fish", swim() {} };
 
 if (isFish(pet)) {
-  pet.swim(); // OK
+  // TypeScript now knows `pet` is Fish
+  pet.swim();
 }
 
-function welcomePeople(x: string[] | string){
-    if(Array.isArray(x)){
-        console.log("Hello, " + x.join(" and "));
-    } else {
-        console.log("Welcome lone traveler " + x);
-    }
+// ------------------------------
+// 🔹 Union Types with Narrowing
+// ------------------------------
+
+/**
+ * Accepts either a string or array of strings
+ * and handles each appropriately.
+ */
+function welcomePeople(x: string[] | string) {
+  if (Array.isArray(x)) {
+    console.log("Hello, " + x.join(" and "));
+  } else {
+    console.log("Welcome lone traveler " + x);
+  }
 }
