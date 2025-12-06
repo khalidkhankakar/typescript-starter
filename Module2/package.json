@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.ts",
   "scripts": {
-    "narrow": "node ./src/narrow.ts"
+    "union": "node ./src/union.ts"
   },
   "keywords": [],
   "author": "",

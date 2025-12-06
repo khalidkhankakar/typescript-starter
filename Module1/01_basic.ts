@@ -6,6 +6,7 @@
 let username: string = "JohnDoe";
 let userAge: number = 30;
 let isAdmin: boolean = true;
+let number: bigint = BigInt(100)
 
 // Array types
 let userScores: number[] = [85, 90, 78];
@@ -107,7 +108,7 @@ function isFish(pet: Fish | Bird): pet is Fish {
   return pet.type === "fish";
 }
 
-let pet: Fish | Bird = { type: "fish", swim() {} };
+let pet: Fish | Bird = { type: "fish", swim() { } };
 
 if (isFish(pet)) {
   // TypeScript now knows `pet` is Fish
